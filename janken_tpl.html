@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<title>じゃんけん</title>
+</head>
+<body>
+
+<header>
+  <h1>じゃんけん</h1>
+  <p class="tuto">グーチョキパーから好きなボタンを押してね</p>
+</header>
+
+<main>
+  <div class="illust gu" id="gu_btn">グー</div> <!--classはスペースで開けて連続して指定できる-->
+  <div class="illust cho" id="cho_btn">チョキ</div>
+  <div class="illust pa" id="par_btn">パー</div>
+  <!-- <ul>
+    <li id="gu_btn"><img src="./img/gu.png" alt=""></li>
+    <li id="cho_btn"><img src="./img/choki.png" alt=""></li>
+    <li id="par_btn"><img src="./img/pa.png" alt=""></li>
+  </ul> -->
+</main>
+
+<ul class="hands">
+    <li>
+        <div id = "your_hands"><img class="hatena" src="./img/hatena_2.png" alt=""></div>
+        <p>あなたの出した手</p>
+        <!-- 押したボタンに応じたイラストを表示させたい。おみくじの大吉のイラストと同じ感じ？ -->
+        <!-- 画像としたの文字を中央ぞろえにしたい -->
+
+    </li>
+    <li class="VS">vs</li>
+    <li>
+        <div id = "pc_hands"><img class="hatena" src="./img/hatena_2.png" alt=""></div>
+        <p>PCの出した手</p>
+    </li>
+</ul>
+<div class="judge">
+    判定：<input type="text" name="" id="judgment" placeholder="どっちが勝つかな？">
+</div>
+    <!-- <span id="judgment">どっちが勝つかな？</span> -->
+<div class="remaininghand">
+    <table rules="rows" class="table_hand">
+        <tr>
+            <th colspan="2" class="tabletitle">あなたの残りの手</th>
+        </tr>
+        <tr>
+            <th>グー</th>
+            <th><span id="guclickcount">4</span>回</th>
+        </tr>
+        <tr>
+            <th>チョキ</th>
+            <th><span id="choclickcount">4</span>回</th>
+        </tr>
+        <tr>
+            <th>パー</th>
+            <th><span id="parclickcount">4</span>回</th>
+        </tr>
+    </table>
+    
+    <table rules="rows" class="table_hand">
+        <tr>
+            <th colspan="2" class="tabletitle">PCの残りの手</th>
+        </tr>
+        <tr>
+            <th>グー</th>
+            <th><span id="pc_guclickcount">4</span>回</th>
+        </tr>
+        <tr>
+            <th>チョキ</th>
+            <th><span id="pc_choclickcount">4</span>回</th>
+        </tr>
+        <tr>
+            <th>パー</th>
+            <th><span id="pc_parclickcount">4</span>回</th>
+        </tr>
+    </table>
+</div>
+
+<div class="remaininghand">
+    <table rules="rows" class="table_star">
+        <tr>
+            <th colspan="2" class="tabletitle">あなたの勝ち星数</th>
+        </tr>
+        <tr>
+            <th colspan="2">あなたの勝ち星数</th>
+        </tr>
+    </table>
+    
+    <table rules="rows" class="table_star">
+        <tr>
+            <th colspan="2" class="tabletitle">PCの勝ち星数</th>
+        </tr>
+        <tr>
+            <th colspan="2">あなたの勝ち星数</th>
+        </tr>
+    </table>
+</div>
+
+
+<div class="reset" id="reset_btn">リセット</div>
+
+<footer></footer>
+<script>
+//じゃんけん用のSCRIPTを書いてください
+
+let x = 0;
+let y = 0;
+let z = 0;
+let gamecount = 0;
+let gucount = 4;
+let chocount = 4;
+let parcount = 4;
+let pc_gucount = 4;
+let pc_chocount = 4;
+let pc_parcount = 4;
+let pc_Counts = [1,1,1,1,2,2,2,2,3,3,3,3] 
+
+//PCの手を決める関数
+function judgepchands(){
+    const r = Math.random()*pc_Counts.length; //ランダムに出る少数に配列の要素数をかける
+    const s = Math.floor(r); //配列の要素番号
+    const n = pc_Counts[s]
+    console.log(r);
+    console.log(s);
+    console.log(n);
+    console.log(pc_hands);
+    pc_Counts.splice(s,1);//pc_Countsから、直前に出した手を削除する
+    console.log(pc_Counts);
+    return n;
+}
+
+
+//あなたがボタンを押して画像が表示される関数
+function displayyourhand(yourhands) {
+    $("#your_hands").html(`<img src="./img/${yourhands}.png" width="500" height="500">`);
+}
+
+//PCの手を表示させる関数
+function displaypchands(pchands, resultText, color){
+    setTimeout(function(){
+        $("#pc_hands").html(`<img src="./img/${pchands}.png" width="500" height="500">`); //pchands次第で表示させる画像を変える
+        $("#judgment").val(resultText).css("color", color); //判定結果と表示させる色も引数に設定
+        gamecount +=1;
+    },1500);
+}
+
+//勝敗の数を計測する関数
+function updateScore(result){
+    if (result === "draw"){
+        z += 1;
+        $("#drawcount").html(z);
+        console.log(z);
+    }
+    if (result === "win"){
+        x += 1;
+        $("#wincount").html(x);
+        console.log(x);
+    }
+    if (result === "lose"){
+        y += 1;
+        $("#losecount").html(y);
+        console.log(y);
+    }
+}
+
+function playJanken(playerHand) {
+    displayyourhand(playerHand);
+    const num = judgepchands();
+
+    const results = {
+        "s003": {1: ["s003", "あいこ", "#000000", "draw"], 2: ["s005", "あなたの勝ち", "#ff0000", "win"], 3: ["s007", "PCの勝ち", "#0F5474", "lose"]},
+        "s005": {1: ["s003", "PCの勝ち", "#0F5474", "lose"], 2: ["s005", "あいこ", "#000000", "draw"], 3: ["s007", "あなたの勝ち", "#ff0000", "win"]},
+        "s007": {1: ["s003", "あなたの勝ち", "#ff0000", "win"], 2: ["s005", "PCの勝ち", "#0F5474", "lose"], 3: ["s007", "あいこ", "#000000", "draw"]}
+    };
+
+    const [pchands, resultText, color, result] = results[playerHand][num];
+    displaypchands(pchands, resultText, color);
+    updateScore(result);
+    pchandscount(num);
+}
+
+function pchandscount(num){
+    if (num == 1){
+        pc_gucount -= 1;
+        console.log(pc_gucount)
+        $("#pc_guclickcount").html(pc_gucount)
+    }
+    if (num == 2){
+        pc_chocount -= 1;
+        console.log(pc_chocount)
+        $("#pc_choclickcount").html(pc_chocount)
+    }
+    if (num == 3){
+        pc_parcount -= 1;
+        console.log(pc_parcount)
+        $("#pc_parclickcount").html(pc_parcount)
+    }
+}
+
+//ボタンを押すことで、displayyourhand関数に引数を渡す
+$("#gu_btn").on("click",function(){
+    if (gucount > 0){
+        playJanken("s003");
+        gucount -= 1; //グーを出せる回数をマイナス1する
+        $("#guclickcount").html(gucount);
+    }
+    else {
+        alert("グーはもう出せません。違う手を選んでください");
+    }
+});
+
+$("#cho_btn").on("click",function(){
+    if (chocount > 0){
+        playJanken("s005");
+        chocount -= 1;//チョキを出せる回数をマイナス1する
+        $("#choclickcount").html(chocount);
+    }
+    else {
+        alert("チョキはもう出せません。違う手を選んでください");
+    }
+
+});
+
+$("#par_btn").on("click",function(){
+    if (parcount > 0){
+        playJanken("s007");
+        parcount -= 1;//パーを出せる回数をマイナス1する
+        $("#parclickcount").html(parcount);
+    }
+    else {
+        alert("パーはもう出せません。違う手を選んでください");
+    }
+});
+
+//リセットボタン
+$("#reset_btn").on("click",function(){
+   location.reload(); //ページ再読み込み
+});
+
+// 自分の手　１グー　２チョキ　３パー
+//PCの手　　１グー　２チョキ　３パー
+//繰り返し出てくるもの
+//（１）コンピュータの手が1~3で計算されるもの
+//（２）勝敗の判定
+
+</script>
+</body>
+</html>
