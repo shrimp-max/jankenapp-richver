@@ -11,7 +11,7 @@
 
 <header>
   <h1>じゃんけん</h1>
-  <p class="tuto">グーチョキパーから好きなボタンを押してね</p>
+  <p class="tuto">グーチョキパーから好きなボタンを押してね<br>グーチョキパーはそれぞれ4回ずつしか出せないから注意してね</p>
 </header>
 
 <main>
@@ -87,7 +87,7 @@
             <th colspan="2" class="tabletitle">あなたの勝ち星数</th>
         </tr>
         <tr>
-            <th colspan="2">あなたの勝ち星数</th>
+            <th colspan="2"><span id="your_starcount">☆☆☆</span></th>
         </tr>
     </table>
     
@@ -96,7 +96,7 @@
             <th colspan="2" class="tabletitle">PCの勝ち星数</th>
         </tr>
         <tr>
-            <th colspan="2">あなたの勝ち星数</th>
+            <th colspan="2"><span id="pc_starcount">☆☆☆</span></th>
         </tr>
     </table>
 </div>
@@ -184,6 +184,7 @@ function playJanken(playerHand) {
     pchandscount(num);
 }
 
+//PCの残りの手数を計算する
 function pchandscount(num){
     if (num == 1){
         pc_gucount -= 1;
