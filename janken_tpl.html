@@ -181,7 +181,9 @@ function playJanken(playerHand) {
     const [pchands, resultText, color, result] = results[playerHand][num];
     displaypchands(pchands, resultText, color);
     updateScore(result);
-    pchandscount(num);
+    setTimeout(function(){
+        pchandscount(num);
+    },1500);
 }
 
 //PCの残りの手数を計算する
