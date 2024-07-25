@@ -108,8 +108,8 @@
 <script>
 //じゃんけん用のSCRIPTを書いてください
 
-let x = 0;
-let y = 0;
+let x = 3;
+let y = 3;
 let z = 0;
 let gamecount = 0;
 let gucount = 4;
@@ -158,13 +158,48 @@ function updateScore(result){
     }
     if (result === "win"){
         x += 1;
-        $("#wincount").html(x);
+        y -= 1;
+        $("#youwincount").html(x);
         console.log(x);
     }
     if (result === "lose"){
+        x -= 1;
         y += 1;
-        $("#losecount").html(y);
+        $("#pcwincount").html(y);
         console.log(y);
+    }
+}
+
+//星の数を表示させる関数
+//勝ち数に応じて星の数を変化させる
+function updatestarcount(x){ 
+    if (x == 0){
+        $("#your_starcount").html("");
+        $("#pc_starcount").html("☆☆☆☆☆☆");
+    }
+    if (x == 1){
+        $("#your_starcount").html("☆");
+        $("#pc_starcount").html("☆☆☆☆☆");
+    }
+    if (x == 2){
+        $("#your_starcount").html("☆☆");
+        $("#pc_starcount").html("☆☆☆☆");
+    }
+    if (x == 3){
+        $("#your_starcount").html("☆☆☆");
+        $("#pc_starcount").html("☆☆☆");
+    }
+    if (x == 4){
+        $("#your_starcount").html("☆☆☆☆");
+        $("#pc_starcount").html("☆☆");
+    }
+    if (x == 5){
+        $("#your_starcount").html("☆☆☆☆☆");
+        $("#pc_starcount").html("☆");
+    }
+    if (x == 6){
+        $("#your_starcount").html("☆☆☆☆☆☆");
+        $("#pc_starcount").html("");
     }
 }
 
@@ -183,6 +218,7 @@ function playJanken(playerHand) {
     updateScore(result);
     setTimeout(function(){
         pchandscount(num);
+        updatestarcount(x);
     },1500);
 }
 
