@@ -174,8 +174,8 @@ function updateScore(result){
 //勝ち数に応じて星の数を変化させる
 function updatestarcount(x){ 
     if (x == 0){
-        $("#your_starcount").html("");
-        $("#pc_starcount").html("☆☆☆☆☆☆");
+        $("#your_starcount").html("☆").css("color","white");
+        $("#pc_starcount").html("☆☆☆☆☆☆").css("color","red");
     }
     if (x == 1){
         $("#your_starcount").html("☆");
@@ -198,8 +198,8 @@ function updatestarcount(x){
         $("#pc_starcount").html("☆");
     }
     if (x == 6){
-        $("#your_starcount").html("☆☆☆☆☆☆");
-        $("#pc_starcount").html("");
+        $("#your_starcount").html("☆☆☆☆☆☆").css("color","red");
+        $("#pc_starcount").html("0").css("color","white");
     }
 }
 
