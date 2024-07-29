@@ -19,7 +19,7 @@
     <div id = "popup_content" class = "popup_content">
         <p class = "result">勝者</p>
         <p id = "finalresult" class = "finalresult"> </p>
-        <div class="close" id="reset_btn">close</div>
+        <div class="close" id="close_btn">close</div>
     </div>
 </section>
 
@@ -313,6 +313,10 @@ if (x + y + z == 12){
 
 //リセットボタン
 $("#reset_btn").on("click",function(){
+   location.reload(); //ページ再読み込み
+});
+
+$("#close_btn").on("click",function(){
    location.reload(); //ページ再読み込み
 });
 
