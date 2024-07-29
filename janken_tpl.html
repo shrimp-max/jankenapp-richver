@@ -11,10 +11,18 @@
 
 <header>
   <h1>限定じゃんけん</h1>
-  <p class="tuto">グーチョキパーから好きなボタンを押してね<br>グーチョキパーはそれぞれ4回ずつしか出せないから注意してね</p>
 </header>
 
 <!-- ポップアップ画面 -->
+ <div class = "rule">
+    <div class = "ruletitile">ルール</div>
+    <ul>
+        <li>①グーチョキパーから好きなボタンを押してね</li>
+        <li>②グーチョキパーはそれぞれ4回ずつしか出せないから注意してね</li>
+        <li>③じゃんけんに勝つと、相手から勝ち星を1つ奪うよ</li>
+        <li>④相手の勝ち星を0にしたほうの勝ち！</li>
+    </ul>
+ </div>
 <section id = "popup" class = "popup">
     <div id = "popup_content" class = "popup_content">
         <p class = "result">勝者</p>
@@ -35,15 +43,15 @@
 </main>
 
 <ul class="hands">
-    <li>
+    <li class="displayhands">
         <div id = "your_hands"><img class="hatena" src="./img/hatena_2.png" alt=""></div>
         <p>あなたの出した手</p>
         <!-- 押したボタンに応じたイラストを表示させたい。おみくじの大吉のイラストと同じ感じ？ -->
         <!-- 画像としたの文字を中央ぞろえにしたい -->
 
     </li>
-    <li class="VS">vs</li>
-    <li>
+    <li class="displayhands"><div class="VS">vs</div></li>
+    <li class="displayhands">
         <div id = "pc_hands"><img class="hatena" src="./img/hatena_2.png" alt=""></div>
         <p>PCの出した手</p>
     </li>
@@ -180,22 +188,6 @@ function updateScore(result){
     }
 }
 
-//ポップアップを出現させる関数
-function fadeinpopup(x,y){
-    if (x > y){
-        $("#popup").fadeIn(500);
-        $("#finalresult").html("あなた").css("color","red");
-    }
-    if(x < y){
-        $("#popup").fadeIn(500);
-        $("#finalresult").html("PC").css("color","blue");
-    }
-    if(x == 3){
-        $("#popup").fadeIn(500);
-        $("#finalresult").html("引き分け");
-    }
-}
-
 //星の数を表示させる関数
 //勝ち数に応じて星の数を変化させる
 function updatestarcount(x){ 
@@ -307,8 +299,9 @@ $("#par_btn").on("click",function(){
 });
 
 //ゲーム終了後のポップアップ画面
-if (pc_gucount == 0 && pc_chocount == 0 && pc_parcount == 0){
-    fadeinpopup(x,y);
+if (gucount == 0 && chocount == 0 && parcount == 0){
+    $("#popup").fadeIn(1000);
+    $("#finalresult").html("引き分け");
 }
 
 //リセットボタン

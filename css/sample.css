@@ -30,6 +30,26 @@ h1{
     line-height: 100px ;
 }
 
+.rule {
+    margin: 100px auto 100px auto;
+    border: gray solid 20px;
+    max-width: 2500px ;
+    border-radius: 100px;
+}
+
+.ruletitile {
+    text-align: center;
+    padding-top: 40px;
+    font-size: 150px;
+    font-weight: bold;
+}
+
+ul li{
+    list-style: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 main{
     margin: 100px 0 0 0;
     display: flex;
@@ -85,15 +105,12 @@ p{
 .hands{
     font-size: 30px;
     margin: 200px 0 0 0;
-}
-
-ul{
     display: flex;
     justify-content: center;
 }
 
-li{
-    list-style: none;
+
+.displayhands{
     width: 800px;
     height: 800px;
     display:flex;
