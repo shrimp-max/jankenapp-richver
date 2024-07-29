@@ -186,11 +186,11 @@ function fadeinpopup(x,y){
         $("#popup").fadeIn(500);
         $("#finalresult").html("あなた").css("color","red");
     }
-    if(X < y){
+    if(x < y){
         $("#popup").fadeIn(500);
         $("#finalresult").html("PC").css("color","blue");
     }
-    else{
+    if(x == 3){
         $("#popup").fadeIn(500);
         $("#finalresult").html("引き分け");
     }
@@ -307,7 +307,7 @@ $("#par_btn").on("click",function(){
 });
 
 //ゲーム終了後のポップアップ画面
-if (x + y + z == 12){
+if (pc_gucount == 0 && pc_chocount == 0 && pc_parcount == 0){
     fadeinpopup(x,y);
 }
 
