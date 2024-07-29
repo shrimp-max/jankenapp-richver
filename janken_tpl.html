@@ -14,6 +14,15 @@
   <p class="tuto">グーチョキパーから好きなボタンを押してね<br>グーチョキパーはそれぞれ4回ずつしか出せないから注意してね</p>
 </header>
 
+<!-- ポップアップ画面 -->
+<section id = "popup" class = "popup">
+    <div id = "popup_content" class = "popup_content">
+        <p class = "result">勝者</p>
+        <p id = "finalresult" class = "finalresult"> </p>
+        <div class="close" id="reset_btn">close</div>
+    </div>
+</section>
+
 <main>
   <div class="illust gu" id="gu_btn">グー</div> <!--classはスペースで開けて連続して指定できる-->
   <div class="illust cho" id="cho_btn">チョキ</div>
@@ -120,6 +129,7 @@ let pc_chocount = 4;
 let pc_parcount = 4;
 let pc_Counts = [1,1,1,1,2,2,2,2,3,3,3,3] 
 
+
 //PCの手を決める関数
 function judgepchands(){
     const r = Math.random()*pc_Counts.length; //ランダムに出る少数に配列の要素数をかける
@@ -170,12 +180,30 @@ function updateScore(result){
     }
 }
 
+//ポップアップを出現させる関数
+function fadeinpopup(x,y){
+    if (x > y){
+        $("#popup").fadeIn(500);
+        $("#finalresult").html("あなた").css("color","red");
+    }
+    if(X < y){
+        $("#popup").fadeIn(500);
+        $("#finalresult").html("PC").css("color","blue");
+    }
+    if(x === y){
+        $("#popup").fadeIn(500);
+        $("#finalresult").html("引き分け");
+    }
+}
+
 //星の数を表示させる関数
 //勝ち数に応じて星の数を変化させる
 function updatestarcount(x){ 
     if (x == 0){
         $("#your_starcount").html("☆").css("color","white");
         $("#pc_starcount").html("☆☆☆☆☆☆").css("color","red");
+        $("#popup").fadeIn(500);
+        $("#finalresult").html("PC").css("color","blue");
     }
     if (x == 1){
         $("#your_starcount").html("☆");
@@ -200,6 +228,8 @@ function updatestarcount(x){
     if (x == 6){
         $("#your_starcount").html("☆☆☆☆☆☆").css("color","red");
         $("#pc_starcount").html("0").css("color","white");
+        $("#popup").fadeIn(500);
+        $("#finalresult").html("あなた").css("color","red");
     }
 }
 
@@ -276,17 +306,22 @@ $("#par_btn").on("click",function(){
     }
 });
 
+//ゲーム終了後のポップアップ画面
+if (x + y + z == 12){
+    fadeinpopup(x,y);
+}
+
 //リセットボタン
 $("#reset_btn").on("click",function(){
    location.reload(); //ページ再読み込み
 });
 
-// 自分の手　１グー　２チョキ　３パー
-//PCの手　　１グー　２チョキ　３パー
-//繰り返し出てくるもの
-//（１）コンピュータの手が1~3で計算されるもの
-//（２）勝敗の判定
+//ポップアップ出現パターン
+//①勝ち星6でゲームセット
+//12回戦って、勝ち星が多いほうの勝ち
+//12回戦ってあいこ
 
 </script>
 </body>
 </html>
+
